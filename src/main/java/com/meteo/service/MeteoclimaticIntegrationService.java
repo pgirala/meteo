@@ -88,7 +88,7 @@ public class MeteoclimaticIntegrationService {
 
             Document doc = Jsoup.connect(url)
                     .timeout(30000)
-                    .validateTLSCertificates(false)
+                    .ignoreHttpErrors(true)
                     .get();
 
             Elements estacionElements = doc.select("div.estacion");

@@ -11,13 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import java.security.cert.X509Certificate;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 
 @Service
@@ -42,7 +36,7 @@ public class AemetIntegrationService {
             // Descargar y parsear datos
             Document doc = Jsoup.connect(AEMET_BASE_URL)
                     .timeout(30000)
-                    .validateTLSCertificates(false)
+                    .ignoreHttpErrors(true)
                     .get();
 
             List<Muestra> muestras = parsearDatosAemet(doc, aemet);
