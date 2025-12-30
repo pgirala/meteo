@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://jmix.io/schema/flowui/view" title="msg://com.meteo.entity/Estacion" focusComponent="estacionesDataGrid">
+    <data>
+        <collection id="estacionesDc" class="com.meteo.entity.Estacion">
+            <fetchPlan extends="_base">
+                <property name="organizacion" fetchPlan="_instance_name"/>
+                <property name="ubicacion" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="estacionesDl" readOnly="true">
+                <query><![CDATA[select e from Estacion e order by e.nombre]]></query>
+            </loader>
+        </collection>
+    </data>
+    <facets><dataLoadCoordinator auto="true"/></facets>
+    <layout>
+        <hbox classNames="buttons-panel">
+            <button action="estacionesDataGrid.create"/>
+            <button action="estacionesDataGrid.edit"/>
+            <button action="estacionesDataGrid.remove"/>
+            <simplePagination dataLoader="estacionesDl"/>
+        </hbox>
+        <dataGrid id="estacionesDataGrid" width="100%" minHeight="20em" dataContainer="estacionesDc">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="nombre"/>
+                <column property="codigoExterno"/>
+                <column property="organizacion"/>
+                <column property="ubicacion"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</view>

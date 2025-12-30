@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view">
+    <layout>
+        <appLayout>
+            <navigationBar id="navigationBar" classNames="jmix-main-view-navbar"/>
+            <drawerLayout id="drawerLayout">
+                <navigationBar drawer="true" id="navigationBarDrawer" classNames="jmix-main-view-drawer">
+                    <drawerToggle id="drawerToggle"
+                                  classNames="jmix-main-view-drawer-toggle"
+                                  themeNames="contrast"
+                                  ariaLabel="msg://drawerToggle.ariaLabel"/>
+                    <h2 id="viewHeaderDrawer" classNames="jmix-main-view-title"/>
+                </navigationBar>
+                <div id="viewContentDrawer" classNames="jmix-main-view-content"/>
+            </drawerLayout>
+            <initialLayout>
+                <h2 id="viewHeader" classNames="jmix-main-view-title"/>
+                <div id="viewContent" classNames="jmix-main-view-content"/>
+            </initialLayout>
+        </appLayout>
+    </layout>
+</view>

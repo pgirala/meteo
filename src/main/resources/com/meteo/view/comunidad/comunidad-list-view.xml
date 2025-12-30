@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://com.meteo.entity/Comunidad"
+      focusComponent="comunidadesDataGrid">
+    <data>
+        <collection id="comunidadesDc"
+                    class="com.meteo.entity.Comunidad">
+            <fetchPlan extends="_base"/>
+            <loader id="comunidadesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Comunidad e order by e.nombre]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="comunidadesDataGrid.create"/>
+            <button id="editBtn" action="comunidadesDataGrid.edit"/>
+            <button id="removeBtn" action="comunidadesDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="comunidadesDl"/>
+        </hbox>
+        <dataGrid id="comunidadesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="comunidadesDc">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="codigo"/>
+                <column property="nombre"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</view>

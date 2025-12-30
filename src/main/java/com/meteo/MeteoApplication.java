@@ -1,9 +1,9 @@
 package com.meteo;
 
-import com.google.common.base.Strings;
-import io.jmix.core.JmixModules;
-import io.jmix.core.Resources;
-import io.jmix.ui.sys.UiControllersConfiguration;
+import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.theme.Theme;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +20,9 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 @EnableScheduling
-public class MeteoApplication {
+@Theme(value = "meteo")
+@PWA(name = "Sistema de Datos Meteorológicos", shortName = "Meteo")
+public class MeteoApplication implements AppShellConfigurator {
 
     @Autowired
     private Environment environment;
@@ -41,6 +43,6 @@ public class MeteoApplication {
         LoggerFactory.getLogger(MeteoApplication.class).info("Application started at "
                 + "http://localhost:"
                 + environment.getProperty("local.server.port")
-                + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
+                + environment.getProperty("server.servlet.context-path", ""));
     }
 }

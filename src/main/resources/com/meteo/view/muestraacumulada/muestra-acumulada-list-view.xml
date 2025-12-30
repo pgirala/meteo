@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:charts="http://jmix.io/schema/charts/ui"
+      title="msg://menu.muestras-acumuladas">
+    <data>
+        <collection id="muestrasAcumuladasDc"
+                    class="com.meteo.entity.MuestraAcumulada"/>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <vbox id="root" height="100%" width="100%" padding="true" spacing="true">
+            <!-- Botones de filtro temporal -->
+            <hbox spacing="true">
+                <button id="btnSemana" text="Última Semana"/>
+                <button id="btnMes" text="Último Mes"/>
+                <button id="btnTrimestre" text="Último Trimestre"/>
+                <button id="btnAnio" text="Último Año"/>
+            </hbox>
+
+            <!-- Gráfico -->
+            <vbox id="chartContainer" height="400px" width="100%">
+                <h3 text="Evolución de Temperaturas y Precipitación"/>
+                <charts:chart id="chart"
+                              height="100%"
+                              width="100%"/>
+            </vbox>
+
+            <!-- Tabla de datos -->
+            <vbox id="tableContainer" width="100%">
+                <h3 text="Datos Acumulados"/>
+                <dataGrid id="muestrasAcumuladasDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="muestrasAcumuladasDc">
+                    <columns>
+                        <column property="fecha"/>
+                        <column property="minimaPromedio" header="msg://com.meteo.entity/MuestraAcumulada.minimaPromedio"/>
+                        <column property="maximaPromedio" header="msg://com.meteo.entity/MuestraAcumulada.maximaPromedio"/>
+                        <column property="precipitacionTotal" header="msg://com.meteo.entity/MuestraAcumulada.precipitacionTotal"/>
+                        <column property="cantidadMuestras" header="msg://com.meteo.entity/MuestraAcumulada.cantidadMuestras"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+        </vbox>
+    </layout>
+</view>

@@ -23,16 +23,20 @@ repositories {
 dependencies {
     implementation 'io.jmix.core:jmix-core-starter'
     implementation 'io.jmix.data:jmix-eclipselink-starter'
-    implementation 'io.jmix.ui:jmix-ui-starter'
-    implementation 'io.jmix.ui:jmix-ui-data-starter'
-    implementation 'io.jmix.ui:jmix-ui-themes-compiled'
-    implementation 'io.jmix.ui:jmix-ui-widgets-compiled'
     implementation 'io.jmix.security:jmix-security-starter'
-    implementation 'io.jmix.security:jmix-security-ui-starter'
     implementation 'io.jmix.security:jmix-security-data-starter'
+    implementation 'io.jmix.security:jmix-security-flowui-starter'
+
+    // Flow UI
+    implementation 'io.jmix.flowui:jmix-flowui-starter'
+    implementation 'io.jmix.flowui:jmix-flowui-data-starter'
+    implementation 'io.jmix.flowui:jmix-flowui-themes'
+
+    // Charts para Flow UI
+    implementation 'io.jmix.charts:jmix-charts-flowui-starter'
+
+    // File storage
     implementation 'io.jmix.localfs:jmix-localfs-starter'
-    implementation 'io.jmix.charts:jmix-charts-starter'
-    implementation 'io.jmix.charts:jmix-charts-ui-starter'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -45,6 +49,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
 }
 
 tasks.named('test') {

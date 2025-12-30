@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://jmix.io/schema/flowui/view" title="msg://com.meteo.entity/Estacion" focusComponent="form">
+    <data>
+        <instance id="estacionDc" class="com.meteo.entity.Estacion">
+            <fetchPlan extends="_base">
+                <property name="organizacion" fetchPlan="_instance_name"/>
+                <property name="ubicacion" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets><dataLoadCoordinator auto="true"/></facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="estacionDc">
+            <textField property="nombre"/>
+            <textField property="codigoExterno"/>
+            <entityPicker property="organizacion">
+                <actions><action type="entity_lookup"/><action type="entity_clear"/></actions>
+            </entityPicker>
+            <entityPicker property="ubicacion">
+                <actions><action type="entity_lookup"/><action type="entity_clear"/></actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button action="saveAction"/>
+            <button action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

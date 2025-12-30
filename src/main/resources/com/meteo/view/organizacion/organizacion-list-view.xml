@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://com.meteo.entity/Organizacion"
+      focusComponent="organizacionesDataGrid">
+    <data>
+        <collection id="organizacionesDc"
+                    class="com.meteo.entity.Organizacion">
+            <fetchPlan extends="_base"/>
+            <loader id="organizacionesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Organizacion e order by e.nombre]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="organizacionesDataGrid.create"/>
+            <button id="editBtn" action="organizacionesDataGrid.edit"/>
+            <button id="removeBtn" action="organizacionesDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="organizacionesDl"/>
+        </hbox>
+        <dataGrid id="organizacionesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="organizacionesDc">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="nombre"/>
+                <column property="descripcion"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

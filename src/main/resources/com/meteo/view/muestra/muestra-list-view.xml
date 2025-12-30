@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://jmix.io/schema/flowui/view" title="msg://com.meteo.entity/Muestra" focusComponent="muestrasDataGrid">
+    <data>
+        <collection id="muestrasDc" class="com.meteo.entity.Muestra">
+            <fetchPlan extends="_base">
+                <property name="estacion" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="muestrasDl" readOnly="true">
+                <query><![CDATA[select e from Muestra e order by e.fecha desc]]></query>
+            </loader>
+        </collection>
+    </data>
+    <facets><dataLoadCoordinator auto="true"/></facets>
+    <layout>
+        <hbox classNames="buttons-panel">
+            <button action="muestrasDataGrid.create"/>
+            <button action="muestrasDataGrid.edit"/>
+            <button action="muestrasDataGrid.remove"/>
+            <simplePagination dataLoader="muestrasDl"/>
+        </hbox>
+        <dataGrid id="muestrasDataGrid" width="100%" minHeight="20em" dataContainer="muestrasDc">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="fecha"/>
+                <column property="estacion"/>
+                <column property="minima"/>
+                <column property="maxima"/>
+                <column property="precipitacion"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</view>
