@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://com.meteo.entity/Muestra"
+        focusComponent="form">
+    <data>
+        <instance id="muestraDc" class="com.meteo.entity.Muestra">
+            <fetchPlan extends="_base">
+                <property name="estacion" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="muestraDc">
+            <column width="350px">
+                <entityPicker id="estacionField" property="estacion">
+                    <actions>
+                        <action id="lookup" type="entity_lookup"/>
+                        <action id="clear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <dateField id="fechaField" property="fecha"/>
+                <textField id="minimaField" property="minima"/>
+                <textField id="maximaField" property="maxima"/>
+                <textField id="precipitacionField" property="precipitacion"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

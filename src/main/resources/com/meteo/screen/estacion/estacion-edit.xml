@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://com.meteo.entity/Estacion"
+        focusComponent="form">
+    <data>
+        <instance id="estacionDc" class="com.meteo.entity.Estacion">
+            <fetchPlan extends="_base">
+                <property name="organizacion" fetchPlan="_instance_name"/>
+                <property name="ubicacion" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="estacionDc">
+            <column width="350px">
+                <textField id="nombreField" property="nombre"/>
+                <textField id="codigoExternoField" property="codigoExterno"/>
+                <entityPicker id="organizacionField" property="organizacion">
+                    <actions>
+                        <action id="lookup" type="entity_lookup"/>
+                        <action id="clear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <entityPicker id="ubicacionField" property="ubicacion">
+                    <actions>
+                        <action id="lookup" type="entity_lookup"/>
+                        <action id="clear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

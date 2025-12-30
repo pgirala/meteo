@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- Initial schema creation -->
+    <changeSet id="1" author="meteo">
+
+        <!-- Organizacion -->
+        <createTable tableName="ORGANIZACION">
+            <column name="ID" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="DESCRIPCION" type="VARCHAR(500)"/>
+        </createTable>
+
+        <!-- Comunidad -->
+        <createTable tableName="COMUNIDAD">
+            <column name="ID" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="CODIGO" type="VARCHAR(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <!-- Provincia -->
+        <createTable tableName="PROVINCIA">
+            <column name="ID" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMUNIDAD_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="PROVINCIA"
+                                 baseColumnNames="COMUNIDAD_ID"
+                                 constraintName="FK_PROVINCIA_COMUNIDAD"
+                                 referencedTableName="COMUNIDAD"
+                                 referencedColumnNames="ID"/>
+
+        <!-- Ubicacion -->
+        <createTable tableName="UBICACION">
+            <column name="ID" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMUNIDAD_ID" type="UUID"/>
+            <column name="PROVINCIA_ID" type="UUID"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="UBICACION"
+                                 baseColumnNames="COMUNIDAD_ID"
+                                 constraintName="FK_UBICACION_COMUNIDAD"
+                                 referencedTableName="COMUNIDAD"
+                                 referencedColumnNames="ID"/>
+
+        <addForeignKeyConstraint baseTableName="UBICACION"
+                                 baseColumnNames="PROVINCIA_ID"
+                                 constraintName="FK_UBICACION_PROVINCIA"
+                                 referencedTableName="PROVINCIA"
+                                 referencedColumnNames="ID"/>
+
+        <!-- Estacion -->
+        <createTable tableName="ESTACION">
+            <column name="ID" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CODIGO_EXTERNO" type="VARCHAR(50)"/>
+            <column name="ORGANIZACION_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UBICACION_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="ESTACION"
+                                 baseColumnNames="ORGANIZACION_ID"
+                                 constraintName="FK_ESTACION_ORGANIZACION"
+                                 referencedTableName="ORGANIZACION"
+                                 referencedColumnNames="ID"/>
+
+        <addForeignKeyConstraint baseTableName="ESTACION"
+                                 baseColumnNames="UBICACION_ID"
+                                 constraintName="FK_ESTACION_UBICACION"
+                                 referencedTableName="UBICACION"
+                                 referencedColumnNames="ID"/>
+
+        <!-- Muestra -->
+        <createTable tableName="MUESTRA">
+            <column name="ID" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ESTACION_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FECHA" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MINIMA" type="DOUBLE"/>
+            <column name="MAXIMA" type="DOUBLE"/>
+            <column name="PRECIPITACION" type="DOUBLE"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="MUESTRA"
+                                 baseColumnNames="ESTACION_ID"
+                                 constraintName="FK_MUESTRA_ESTACION"
+                                 referencedTableName="ESTACION"
+                                 referencedColumnNames="ID"/>
+
+        <createIndex indexName="IDX_MUESTRA_FECHA" tableName="MUESTRA">
+            <column name="FECHA"/>
+        </createIndex>
+
+        <createIndex indexName="IDX_MUESTRA_ESTACION_FECHA" tableName="MUESTRA" unique="true">
+            <column name="ESTACION_ID"/>
+            <column name="FECHA"/>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>

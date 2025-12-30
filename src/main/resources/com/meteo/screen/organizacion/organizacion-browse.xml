@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://com.meteo.entity/Organizacion"
+        focusComponent="organizacionesTable">
+    <data readOnly="true">
+        <collection id="organizacionesDc"
+                    class="com.meteo.entity.Organizacion">
+            <fetchPlan extends="_base"/>
+            <loader id="organizacionesDl">
+                <query>
+                    <![CDATA[select e from Organizacion e order by e.nombre]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="organizacionesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="organizacionesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="organizacionesTable"
+                    width="100%"
+                    dataContainer="organizacionesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="nombre"/>
+                <column id="descripcion"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="organizacionesTable.create"/>
+                <button id="editBtn" action="organizacionesTable.edit"/>
+                <button id="removeBtn" action="organizacionesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

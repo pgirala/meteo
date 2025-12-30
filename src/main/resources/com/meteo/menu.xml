@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+
+    <menu id="application" caption="msg://menu.application">
+
+        <menu id="geografia" caption="msg://menu.geografia">
+            <item screen="Comunidad.browse" caption="msg://menu.comunidades"/>
+            <item screen="Provincia.browse" caption="msg://menu.provincias"/>
+            <item screen="Ubicacion.browse" caption="msg://menu.ubicaciones"/>
+        </menu>
+
+        <item screen="Organizacion.browse" caption="msg://menu.organizaciones"/>
+        <item screen="Estacion.browse" caption="msg://menu.estaciones"/>
+
+        <separator/>
+
+        <menu id="datos" caption="msg://menu.datos">
+            <item screen="MuestraAcumulada.browse" caption="msg://menu.muestras-acumuladas"/>
+            <item screen="Muestra.browse" caption="msg://menu.muestras"/>
+        </menu>
+
+    </menu>
+
+</menu-config>

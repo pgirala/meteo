@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://com.meteo.entity/Estacion"
+        focusComponent="estacionesTable">
+    <data readOnly="true">
+        <collection id="estacionesDc" class="com.meteo.entity.Estacion">
+            <fetchPlan extends="_base">
+                <property name="organizacion" fetchPlan="_instance_name"/>
+                <property name="ubicacion" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="estacionesDl">
+                <query>
+                    <![CDATA[select e from Estacion e order by e.nombre]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout expand="estacionesTable" spacing="true">
+        <filter id="filter" dataLoader="estacionesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="estacionesTable" width="100%" dataContainer="estacionesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="nombre"/>
+                <column id="codigoExterno"/>
+                <column id="organizacion"/>
+                <column id="ubicacion"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel alwaysVisible="true">
+                <button action="estacionesTable.create"/>
+                <button action="estacionesTable.edit"/>
+                <button action="estacionesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://com.meteo.entity/Provincia"
+        focusComponent="provinciasTable">
+    <data readOnly="true">
+        <collection id="provinciasDc" class="com.meteo.entity.Provincia">
+            <fetchPlan extends="_base">
+                <property name="comunidad" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="provinciasDl">
+                <query>
+                    <![CDATA[select e from Provincia e order by e.nombre]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout expand="provinciasTable" spacing="true">
+        <filter id="filter" dataLoader="provinciasDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="provinciasTable" width="100%" dataContainer="provinciasDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="nombre"/>
+                <column id="comunidad"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel alwaysVisible="true">
+                <button action="provinciasTable.create"/>
+                <button action="provinciasTable.edit"/>
+                <button action="provinciasTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>
