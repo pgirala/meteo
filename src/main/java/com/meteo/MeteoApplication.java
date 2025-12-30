@@ -1,7 +1,6 @@
 package com.meteo;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
-import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import org.slf4j.LoggerFactory;
@@ -10,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.event.EventListener;
@@ -35,7 +35,7 @@ public class MeteoApplication implements AppShellConfigurator {
     @Primary
     @ConfigurationProperties("main.datasource")
     DataSource dataSource() {
-        return new org.springframework.boot.jdbc.DataSourceBuilder.create().build();
+        return DataSourceBuilder.create().build();
     }
 
     @EventListener
