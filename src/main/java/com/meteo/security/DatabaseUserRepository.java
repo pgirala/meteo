@@ -36,4 +36,12 @@ public class DatabaseUserRepository implements UserRepository {
                 .parameter("username", "%" + username + "%")
                 .list();
     }
+
+    @Override
+    public UserDetails getAnonymousUser() {
+        User anonymousUser = new User();
+        anonymousUser.setUsername("anonymous");
+        anonymousUser.setActive(false);
+        return anonymousUser;
+    }
 }
