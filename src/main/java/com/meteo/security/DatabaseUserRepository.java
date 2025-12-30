@@ -44,4 +44,12 @@ public class DatabaseUserRepository implements UserRepository {
         anonymousUser.setActive(false);
         return anonymousUser;
     }
+
+    @Override
+    public UserDetails getSystemUser() {
+        User systemUser = new User();
+        systemUser.setUsername("system");
+        systemUser.setActive(true);
+        return systemUser;
+    }
 }
