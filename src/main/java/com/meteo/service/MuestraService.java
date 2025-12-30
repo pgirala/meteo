@@ -32,17 +32,14 @@ public class MuestraService {
             "from Muestra m "
         );
 
-        List<Object> params = new ArrayList<>();
         List<String> conditions = new ArrayList<>();
 
         if (fechaInicio != null) {
-            conditions.add("m.fecha >= ?1");
-            params.add(fechaInicio);
+            conditions.add("m.fecha >= :fechaInicio");
         }
 
         if (fechaFin != null) {
-            conditions.add("m.fecha <= ?2");
-            params.add(fechaFin);
+            conditions.add("m.fecha <= :fechaFin");
         }
 
         if (!conditions.isEmpty()) {
@@ -54,8 +51,12 @@ public class MuestraService {
         var query = dataManager.load(MuestraAcumulada.class)
                 .query(jpql.toString());
 
-        for (int i = 0; i < params.size(); i++) {
-            query = query.parameter(i + 1, params.get(i));
+        if (fechaInicio != null) {
+            query = query.parameter("fechaInicio", fechaInicio);
+        }
+
+        if (fechaFin != null) {
+            query = query.parameter("fechaFin", fechaFin);
         }
 
         return query.list();
